@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  VPC:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: !Sub '10.0.0.0/16'
+  SubnetAPublic:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      AvailabilityZone: !Select [0, !GetAZs '']
+      CidrBlock: '10.0.0.0/20'
+      VpcId: !Ref VPC
+Outputs:
+  Subnet:
+    Description: 'Subnet.'
+    Value: !Ref SubnetAPublic
+    Export:
+      Name: 'vpc-subnet'
+---
+
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  VirtualMachine:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      SubnetId: !ImportValue 'vpc-subnet'
+  ​
