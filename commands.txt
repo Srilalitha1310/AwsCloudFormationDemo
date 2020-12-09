@@ -1,0 +1,12 @@
+aws cloudformation create-stack --stackname <stack-name> --template-file <file-name>
+
+aws cloudformation create-stack --stackname <stack-name> --template-file <file-name> --parameter-overides instanceType=t2.micro
+
+aws cloudformation create-stack --stack-name myStack --template-body file://ec2.yml
+
+aws cloudformation delete-stack --stack-name myStack
+
+aws cloudformation create-stack --stack-name myStack --template-body file://ec2WithParameters.yml --parameters ParameterKey=InstanceTypeParameter,ParameterValue=t2.micro
+
+
+serverless config credentials --provider provider --key key --secret secret
